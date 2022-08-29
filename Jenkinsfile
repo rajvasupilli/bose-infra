@@ -1,5 +1,14 @@
 pipeline {
+    agent any 
     stages {
+	    stage('git clone') {
+            steps {
+                sh '''
+                   git clone git@github.com:rajvasupilli/bose-infra.git
+                   ls -l
+                '''
+            }
+		}
         stage('Terraform Init & Apply') { 
             steps {
 			   sh '''
@@ -10,7 +19,7 @@ pipeline {
 				cat folder.txt
 				for path in `cat folder.txt` 
 					do
-						cd /root/.jenkins/workspace/bose-infrastructure/$path
+						cd /home/ubuntu/.jenkins/workspace/bose-infra-pipeline/$path
 						terraform init
 						terraform apply --auto-approve  
 					done
