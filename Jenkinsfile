@@ -4,8 +4,12 @@ pipeline {
 	    stage('git clone') {
             steps {
                 sh '''
-                   git clone git@github.com:rajvasupilli/bose-infra.git
-                   ls -l
+		 if [ -e bose-infra ];
+		  then
+		    exit
+		 else	    
+                     git clone git@github.com:rajvasupilli/bose-infra.git
+		 fi
                 '''
             }
 		}
